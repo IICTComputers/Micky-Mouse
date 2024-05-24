@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+<meta charset="UTF-8">
+    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Micky Mouse</title>
+     <link rel="icon" href="icon.png">
+    <style>
+      body {
+        width: 100%;
+        height: 70vh;
+        margin: 0;
+        padding: 0;
+        background: url("1.png" );
+        background-repeat: no-repeat;
+      }
+
+      .center {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      .face {
+        width: 100vw;
+        height: 100vw;
+        background-image: url("Micky Mouse.png");
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 20%;
+        left: 75%;
+        transform: translate(-50%, 0);
+      }
+      .eye {
+        width: 55px;
+        height: 115px;
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 0 14px 1px rgba(0, 0, 0, 0.2) inset;
+        position: absolute;
+        top: 12%;
+        left: 11%;
+      }
+      .eye:nth-child(2) {
+        left: 15%;
+        right: 18%;
+      }
+      .ball {
+
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        top:68%;
+        background: radial-gradient(
+          circle at 60% 40%,
+          rgb(170, 170, 170),
+          rgb(30, 30, 30),
+          rgb(45, 45, 45)
+        );
+        border-radius: 50%;
+        top: calc(50% - 10px);
+        left: calc(50% - 20px);
+        transition: 0.2s;
+      }
+      .blink {
+                
+                animation: blinker 1.5s linear infinite;
+                color: green;
+                font-family: sans-serif;
+            }
+            @keyframes blinker {
+                
+              30% {
+                    opacity: 0;
+                    color:chartreuse;
+                    
+                }
+                50% {
+                    opacity: 1;
+                    color: aqua;
+                    
+                }
+                80% {
+                    opacity: 2;
+                    color: blueviolet;
+                    
+                }
+                100% {
+                    opacity: 3;
+                    color: brown;
+            }
+          }
+    </style>
+  </head>
+  <body>
+    <h1><b><marquee class="blink" direction="right" behavior="alternate" width="100%" scrollamount="18" width=750px>Cursor Hover Effect</marquee></b></h1>
+    <div class="center">
+      <div class="face">
+        <div class="eye">
+          <div class="ball"></div>
+        </div>
+        <div class="eye">
+          <div class="ball"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let eyeballs = document.querySelectorAll(".ball");
+
+      document.addEventListener("mousemove", (e) => {
+        let mouseX = e.clientX;
+        let mouseY = e.clientY;
+
+        eyeballs.forEach((ball) => {
+          const eyeRect = ball.getBoundingClientRect();
+          const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+          const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+          const angle = Math.atan2(mouseY - eyeCenterY, mouseX - eyeCenterX);
+          let translationX = (eyeRect.width / 2 - 10) * Math.cos(angle);
+          let translationY = (eyeRect.height / 2 - 10) * Math.sin(angle);
+          ball.style.transform = `translate(${translationX}px, ${translationY}px)`;
+        });
+      });
+    </script>
+  </body>
+</html>
